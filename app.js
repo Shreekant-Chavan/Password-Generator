@@ -1,8 +1,9 @@
-const passwordBox = document.getElementById('.password');
-const passGenerator = document.getElementById('.password-generator');
+const passwordBox = document.getElementById('password');
+const passGenerator = document.getElementById('password-generator');
+const copyBtn = document.getElementById('copy-btn');
 const lenght = 8;
 
-passGenerator.addEventListener("onclick", passwordGenerator());
+passGenerator.addEventListener("click", passwordGenerator);
 
 const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const lowerCase = "abcdefghijklmnopqrstuvwxyz";
@@ -15,13 +16,20 @@ function passwordGenerator() {
     let password = "";
 
     password += upperCase[Math.floor(Math.random() * upperCase.length)];
-    password += lowerCase[Math.floor(Math.random * lowerCase.length)];
-    password += number[Math.floor(Math.random * number.length)];
-    password += symbol[Math.floor(Math.random * symbol.length)];
+    password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+    password += number[Math.floor(Math.random() * number.length)];
+    password += symbol[Math.floor(Math.random() * symbol.length)];
 
     while (lenght > password.length) {
-        password += allChar[Math.floor(Math.random * allChar.length)];
+        password += allChar[Math.floor(Math.random() * allChar.length)];
     }
     passwordBox.value = password;
 }
 
+copyBtn.addEventListener('click', () => {
+    passwordBox.select();
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+
+    alert("Password is copied to your Clipboard!")
+})
